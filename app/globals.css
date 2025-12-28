@@ -125,3 +125,35 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Mermaid diagram styles */
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid-container .node rect,
+.mermaid-container .node circle,
+.mermaid-container .node ellipse,
+.mermaid-container .node polygon {
+  fill: hsl(var(--muted));
+  stroke: hsl(var(--border));
+}
+
+.mermaid-container .edgePath .path {
+  stroke: hsl(var(--foreground) / 0.3);
+}
+
+.mermaid-container .edgeLabel {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.mermaid-container .cluster rect {
+  fill: hsl(var(--muted) / 0.3);
+  stroke: hsl(var(--border));
+}
+
+.mermaid-container .cluster text {
+  fill: hsl(var(--foreground));
+}

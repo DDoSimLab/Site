@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   MinimalCard,
   MinimalCardImage,
@@ -24,44 +24,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-
-const blogPosts = [
-  {
-    id: 1,
-    title: "Understanding DDoS Attacks: A Comprehensive Guide",
-    description:
-      "Learn about the different types of DDoS attacks, how they work, and what you can do to protect your systems from these threats.",
-    image: "/basic-img.png",
-  },
-  {
-    id: 2,
-    title: "Best Practices for Network Security",
-    description:
-      "Explore essential network security practices that every organization should implement to safeguard against cyber threats and attacks.",
-    image: "/basic-img.png",
-  },
-  {
-    id: 3,
-    title: "The Evolution of Cybersecurity Threats",
-    description:
-      "A deep dive into how cybersecurity threats have evolved over the years and what the future holds for digital security.",
-    image: "/basic-img.png",
-  },
-  {
-    id: 4,
-    title: "How to Simulate DDoS Attacks Safely",
-    description:
-      "Discover how to use simulation tools to test your network's resilience against DDoS attacks in a controlled environment.",
-    image: "/basic-img.png",
-  },
-  {
-    id: 5,
-    title: "Cybersecurity Education: Why It Matters",
-    description:
-      "Understanding the importance of cybersecurity education and how it can help build a more secure digital future for everyone.",
-    image: "/basic-img.png",
-  },
-];
+import { blogPosts } from "@/data/blogs";
+import Link from "next/link";
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -78,6 +42,28 @@ export default function BlogPage() {
       setAppliedFilters([...appliedFilters, filter]);
     }
   };
+
+  const filteredPosts = useMemo(() => {
+    return blogPosts.filter((post) => {
+      const matchesSearch =
+        searchQuery === "" ||
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.tags.some((tag) =>
+          tag.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+      const matchesFilters =
+        appliedFilters.length === 0 ||
+        appliedFilters.some((filter) =>
+          post.tags.some((tag) =>
+            tag.toLowerCase().includes(filter.toLowerCase())
+          )
+        );
+
+      return matchesSearch && matchesFilters;
+    });
+  }, [searchQuery, appliedFilters]);
 
   return (
     <main>
@@ -146,41 +132,45 @@ export default function BlogPage() {
 
         {/* Blog Posts List */}
         <section className="mb-12">
-          <div className="space-y-6">
-            {blogPosts.map((post) => (
-              <MinimalCard key={post.id} className="overflow-hidden">
-                <div className="flex flex-col md:flex-row gap-6 p-4">
-                  {/* Image */}
-                  <div className="md:w-64 md:shrink-0">
-                    <MinimalCardImage
-                      src={post.image}
-                      alt={post.title}
-                      className="h-48 md:h-full"
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 flex flex-col justify-between">
-                    <div>
+          {filteredPosts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">
+                No blog posts found matching your search.
+              </p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-6">
+              {filteredPosts.map((post) => (
+                <Link key={post.id} href={`/blog/${post.slug}`}>
+                  <MinimalCard className="h-full hover:shadow-lg transition-shadow cursor-pointer flex flex-col">
+                    <MinimalCardImage src={post.image} alt={post.title} />
+                    <div className="p-4 flex-1 flex flex-col">
                       <MinimalCardTitle className="mb-2">
                         {post.title}
                       </MinimalCardTitle>
-                      <MinimalCardDescription className="line-clamp-3">
+                      <MinimalCardDescription className="flex-1">
                         {post.description}
                       </MinimalCardDescription>
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {post.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-1 bg-primary/10 text-primary rounded text-xs font-medium"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="mt-4 flex items-center gap-2 text-primary hover:underline">
+                        Read more
+                        <ArrowRightIcon size={16} weight="duotone" />
+                      </div>
                     </div>
-                    <a
-                      href={`/blog/${post.id}`}
-                      className="inline-flex items-center gap-2 text-primary hover:underline mt-4 self-start"
-                    >
-                      Read more
-                      <ArrowRightIcon size={16} weight="duotone" />
-                    </a>
-                  </div>
-                </div>
-              </MinimalCard>
-            ))}
-          </div>
+                  </MinimalCard>
+                </Link>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Pagination */}
