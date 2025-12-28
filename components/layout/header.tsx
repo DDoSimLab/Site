@@ -27,7 +27,7 @@ export function Header() {
     },
     {
       name: "Blogs",
-      link: "#blog",
+      link: "/blog",
     },
     {
       name: "About",

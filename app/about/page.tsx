@@ -20,6 +20,8 @@ import {
   XLogoIcon,
   LinkedinLogoIcon,
   EnvelopeIcon,
+  PaperPlaneTiltIcon,
+  PaperPlaneRightIcon,
 } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useState } from "react";
@@ -49,10 +51,10 @@ export default function AboutPage() {
   };
 
   return (
-    <main className="pb-16">
+    <main>
       <div className="container mx-auto px-8 max-w-7xl">
         {/* Hero Section - Vision & Mission */}
-        <section className="mb-20 md:mb-32 h-screen 3xl:h-auto content-center">
+        <section className="h-screen 3xl:h-auto content-center">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             {/* Left Column - Text Content */}
             <div className="space-y-6 order-2 md:order-1">
@@ -233,8 +235,8 @@ export default function AboutPage() {
                   </div>
 
                   <Button type="submit" className="w-full" size="lg">
-                    <EnvelopeIcon className="size-5 mr-2" weight="duotone" />
                     Send Message
+                    <PaperPlaneRightIcon size={20} weight="duotone" />
                   </Button>
                 </form>
               </CardContent>

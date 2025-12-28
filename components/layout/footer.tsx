@@ -6,8 +6,8 @@ const links = [
     href: "#",
   },
   {
-    title: "Help",
-    href: "#",
+    title: "Blogs",
+    href: "/blog",
   },
   {
     title: "About",
