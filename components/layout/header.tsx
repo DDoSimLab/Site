@@ -31,7 +31,7 @@ export function Header() {
     },
     {
       name: "About",
-      link: "#about",
+      link: "/about",
     },
   ];
 
