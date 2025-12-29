@@ -37,7 +37,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const post = getBlogBySlug(slug);
 
   if (!post) {
@@ -100,8 +100,8 @@ function buildBlogPostJsonLd(post: BlogPost) {
   };
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = params;
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
   const post = getBlogBySlug(slug);
 
   if (!post) {
