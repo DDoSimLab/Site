@@ -10,21 +10,17 @@ export function FeaturesSection() {
   return (
     <section
       id="features"
-      className="features-section mb-10 z-3 relative scroll-mt-24"
+      className="features-section mb-10 z-3 relative scroll-mt-36"
     >
       <div className="features-container container mx-auto max-w-7xl px-8 relative">
         <div className="mx-auto space-y-8 md:space-y-12">
-          {/* <div className="relative z-0 max-w-2xl">
-            <h2 className="text-3xl font-bold">
-              Effortless Distributed Denial-of-Service Simulation
-            </h2>
+          <div className="relative z-0 max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-bold">Features</h2>
             <p className="mt-6 text-gray-700">
               DDoSim lets you quickly model, visualize, and understand DDoS
               attack and defense strategies with a beautiful, interactive globe.
-              Perfect for security education, team training, and modern blue
-              team/CTF workflows—no complex setup required.
             </p>
-          </div> */}
+          </div>
           <div className="flex flex-col gap-8 lg:flex-row items-center">
             <div className="order-2 mask-b-from-75% mask-l-from-75% mask-b-to-95% mask-l-to-95% relative md:-mx-2">
               <div className="perspective-midrange">

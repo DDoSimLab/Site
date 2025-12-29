@@ -11,7 +11,7 @@ export function HeroSection() {
           {/* Left Column */}
           <div className="hero-left space-y-6 place-self-center z-20">
             {/* Main Heading */}
-            <h1 className="hero-heading text-3xl font-bold">
+            <h1 className="hero-heading text-3xl md:text-4xl font-bold">
               Experience Real-Time{" "}
               <Highlighter action="highlight">DDoS</Highlighter> Attack
               <Highlighter action="underline" color="#FF9800">

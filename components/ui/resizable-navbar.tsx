@@ -127,7 +127,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       e.preventDefault();
       const element = document.querySelector(item.link);
       if (element) {
-        const headerOffset = 100; // Account for fixed header height + padding
+        const headerOffset = 140; // Account for fixed header height + padding
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition =
           elementPosition + window.pageYOffset - headerOffset;

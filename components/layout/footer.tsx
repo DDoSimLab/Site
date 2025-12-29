@@ -24,7 +24,7 @@ const handleSmoothScroll = (
     e.preventDefault();
     const element = document.querySelector(href);
     if (element) {
-      const headerOffset = 100; // Account for fixed header height + padding
+      const headerOffset = 140; // Account for fixed header height + padding
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition =
         elementPosition + window.pageYOffset - headerOffset;
