@@ -141,7 +141,7 @@ The threat landscape continues to evolve, with emerging technologies like 5G net
       `](` +
       SIMULATOR_URLS.PRIMARY +
       `). Experience real-time attack simulations and understand how different attack vectors impact system performance.`,
-    image: "/blogs/The-Anatomy-of-DDoS-Attacks.png",
+    image: "/blogs/The-Anatomy-of-DDoS-Attacks.jpg",
     author: "DDoSim Team",
     publishedAt: "2024-01-15",
     readTime: 8,
@@ -297,7 +297,7 @@ As network environments become increasingly complex and distributed, the importa
       `](` +
       SIMULATOR_URLS.PRIMARY +
       `) to see how different network architectures handle DDoS attacks and other security threats.`,
-    image: "/blogs/Network-Security-Architecture.png",
+    image: "/blogs/Network-Security-Architecture.jpg",
     author: "DDoSim Team",
     publishedAt: "2024-01-20",
     readTime: 10,
@@ -453,7 +453,7 @@ The trajectory suggests that threats will continue to evolve, becoming more soph
       `](` +
       SIMULATOR_URLS.PRIMARY +
       `). Experience how different attack vectors have evolved and understand their impact on modern systems.`,
-    image: "/blogs/The-Metamorphosis-of-Cyber-Threats.png",
+    image: "/blogs/The-Metamorphosis-of-Cyber-Threats.jpg",
     author: "DDoSim Team",
     publishedAt: "2024-01-25",
     readTime: 12,
@@ -663,7 +663,7 @@ As attack sophistication continues to evolve, simulation programs must adapt to 
       `)` +
       SIMULATOR_CTA_TEXT.TEST_YOUR_KNOWLEDGE +
       ` and see how different attack vectors impact system performance in real-time.`,
-    image: "/blogs/The-Science-of-DDoS-Simulation.png",
+    image: "/blogs/The-Science-of-DDoS-Simulation.jpg",
     author: "DDoSim Team",
     publishedAt: "2024-02-01",
     readTime: 9,
@@ -842,7 +842,7 @@ The future of cybersecurity depends fundamentally on our ability to educate—to
       `](` +
       SIMULATOR_URLS.PRIMARY +
       `) to see how theoretical knowledge translates into practical understanding of DDoS attacks and network security.`,
-    image: "/blogs/Cybersecurity-Education-in-the-Digital-Age.png",
+    image: "/blogs/Cybersecurity-Education-in-the-Digital-Age.jpg",
     author: "DDoSim Team",
     publishedAt: "2024-02-05",
     readTime: 11,
