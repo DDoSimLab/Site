@@ -7,7 +7,7 @@ import {
   COLORS,
   ICON_SIZES,
 } from "@/lib/constants";
-import { Globe } from "../ui/globe2";
+import { Globe } from "../ui/globe";
 import { Highlighter } from "../ui/highlighter";
 
 export function HeroSection() {
@@ -49,7 +49,10 @@ export function HeroSection() {
             >
               <Button variant="outline">
                 {TEXT_CONTENT.BUTTONS.SIMULATOR}
-                <CaretDoubleRightIcon weight="duotone" size={ICON_SIZES.MEDIUM} />
+                <CaretDoubleRightIcon
+                  weight="duotone"
+                  size={ICON_SIZES.MEDIUM}
+                />
               </Button>
             </Link>
           </div>
