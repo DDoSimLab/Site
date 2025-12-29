@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import createGlobe, { COBEOptions } from "cobe";
+import createGlobe, { COBEOptions, Marker } from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -127,7 +127,7 @@ export function Globe({
         const pulse = pulseRef.current;
 
         if (state.markers && state.markers.length > 0) {
-          state.markers.forEach((marker, index) => {
+          state.markers.forEach((marker: Marker, index: number) => {
             // Each marker pulses with a slight phase offset for staggered effect
             const phase = (pulse + index * 0.5) % (2 * Math.PI);
             // Pulse size oscillates between 80% and 120% of original size
