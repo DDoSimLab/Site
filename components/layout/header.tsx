@@ -39,7 +39,11 @@ export function Header({ stars }: { stars: number }) {
             className="flex items-center"
             aria-label={TEXT_CONTENT.HERO.ARIA_LABEL}
           >
-            <NavbarButton variant="primary" className="flex gap-2 items-center">
+            <NavbarButton
+              as="button"
+              variant="primary"
+              className="flex gap-2 items-center"
+            >
               <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>
               <CaretDoubleRightIcon weight="duotone" size={ICON_SIZES.MEDIUM} />
             </NavbarButton>
