@@ -1,17 +1,25 @@
 import { CaretDoubleRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "../ui/button";
+import Link from "next/link";
+import { SIMULATOR_URLS } from "@/lib/constants";
 import { Globe } from "../ui/globe2";
 import { Highlighter } from "../ui/highlighter";
 
 export function HeroSection() {
   return (
-    <section className="hero-section content-center h-full">
+    <section
+      className="hero-section content-center h-full"
+      aria-labelledby="hero-heading"
+    >
       <div className="hero-container container mx-auto px-8 max-w-7xl">
         <div className="hero-grid grid md:grid-cols-2 gap-8 items-center py-16 md:py-0">
           {/* Left Column */}
           <div className="hero-left space-y-6 place-self-center z-20">
             {/* Main Heading */}
-            <h1 className="hero-heading text-3xl md:text-4xl font-bold">
+            <h1
+              id="hero-heading"
+              className="hero-heading text-3xl md:text-4xl font-bold"
+            >
               Experience Real-Time{" "}
               <Highlighter action="highlight">DDoS</Highlighter> Attack
               <Highlighter action="underline" color="#FF9800">
@@ -29,10 +37,15 @@ export function HeroSection() {
             </div>
 
             {/* Primary Button */}
-            <Button variant="outline">
-              Simulator
-              <CaretDoubleRightIcon weight="duotone" size={20} />
-            </Button>
+            <Link
+              href={SIMULATOR_URLS.PRIMARY}
+              aria-label="Open the DDoSim interactive DDoS attack simulator"
+            >
+              <Button variant="outline">
+                Simulator
+                <CaretDoubleRightIcon weight="duotone" size={20} />
+              </Button>
+            </Link>
           </div>
 
           {/* Right Column - Image Placeholder */}

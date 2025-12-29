@@ -8,130 +8,69 @@ import {
   MinimalCardDescription,
 } from "@/components/ui/minimal-card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  MagnifyingGlassIcon,
-  XIcon,
-  ArrowRightIcon,
-  ArrowsDownUpIcon,
-} from "@phosphor-icons/react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+import { MagnifyingGlassIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { blogPosts } from "@/data/blogs";
 import Link from "next/link";
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [appliedFilters, setAppliedFilters] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10;
-
-  const handleRemoveFilter = (filter: string) => {
-    setAppliedFilters(appliedFilters.filter((f) => f !== filter));
-  };
-
-  const handleAddFilter = (filter: string) => {
-    if (!appliedFilters.includes(filter)) {
-      setAppliedFilters([...appliedFilters, filter]);
-    }
-  };
 
   const filteredPosts = useMemo(() => {
     return blogPosts.filter((post) => {
-      const matchesSearch =
+      const searchLower = searchQuery.toLowerCase();
+      return (
         searchQuery === "" ||
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-      const matchesFilters =
-        appliedFilters.length === 0 ||
-        appliedFilters.some((filter) =>
-          post.tags.some((tag) =>
-            tag.toLowerCase().includes(filter.toLowerCase())
-          )
-        );
-
-      return matchesSearch && matchesFilters;
+        post.title.toLowerCase().includes(searchLower) ||
+        post.description.toLowerCase().includes(searchLower) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+      );
     });
-  }, [searchQuery, appliedFilters]);
+  }, [searchQuery]);
 
   return (
-    <main>
+    <main aria-labelledby="blog-page-title">
       <div className="container mx-auto px-8 max-w-7xl">
+        {/* Page Heading */}
+        <header className="mb-6 pt-24 md:pt-28">
+          <h1
+            id="blog-page-title"
+            className="text-3xl md:text-4xl font-bold mb-2"
+          >
+            Cybersecurity Articles & DDoS Guides
+          </h1>
+          <p className="text-muted-foreground text-lg max-w-2xl">
+            Read in-depth articles on distributed denial-of-service attacks,
+            network security architecture, and modern cyber threat trends.
+          </p>
+        </header>
+
         {/* Search and Filter Bar */}
-        <section className="mb-8 pt-24 md:pt-28">
+        <section className="mb-8" aria-label="Filter blog posts">
           <div className="flex flex-col md:flex-row gap-4 items-center">
             {/* Search Input */}
             <div className="relative flex-1 w-full group">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
+              <div className="absolute inset-0 bg-linear-to-r from-primary/10 via-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
               <div className="relative">
                 <MagnifyingGlassIcon
                   className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground group-hover:text-primary transition-colors duration-200 z-10"
                   weight="duotone"
+                  aria-hidden="true"
                 />
                 <Input
-                  type="text"
-                  placeholder="Search articles..."
+                  type="search"
+                  placeholder="Search articles by title, topic, or tag..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  aria-label="Search blog articles"
                   className="pl-12 pr-4 h-12 text-base bg-background/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/30 focus-visible:border-primary/50 focus-visible:ring-primary/20 transition-all duration-200 rounded-xl"
                 />
               </div>
             </div>
-
-            {/* Filter Buttons */}
-            {/* <div className="flex gap-2 flex-wrap">
-              <Button
-                variant="outline"
-                onClick={() => handleAddFilter("Sort")}
-                className="flex items-center gap-2"
-              >
-                <ArrowsDownUpIcon size={16} weight="duotone" />
-                Sort
-              </Button>
-              <Button variant="outline" onClick={() => handleAddFilter("Type")}>
-                Type
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => handleAddFilter("Length")}
-              >
-                Length
-              </Button>
-            </div> */}
           </div>
-
-          {/* Applied Filters/Tags */}
-          {/* {appliedFilters.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-4">
-              {appliedFilters.map((filter) => (
-                <Button
-                  key={filter}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleRemoveFilter(filter)}
-                  className="flex items-center gap-2"
-                >
-                  {filter}
-                  <XIcon size={14} weight="duotone" />
-                </Button>
-              ))}
-            </div>
-          )} */}
         </section>
 
         {/* Blog Posts List */}
-        <section className="mb-12">
+        <section className="mb-12" aria-label="Blog articles">
           {filteredPosts.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground text-lg">
@@ -162,7 +101,7 @@ export default function BlogPage() {
                         ))}
                       </div>
                       <div className="mt-4 flex items-center gap-2 text-primary hover:underline">
-                        Read more
+                        <span>Read more</span>
                         <ArrowRightIcon size={16} weight="duotone" />
                       </div>
                     </div>
@@ -172,98 +111,6 @@ export default function BlogPage() {
             </div>
           )}
         </section>
-
-        {/* Pagination */}
-        {/* <section>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (currentPage > 1) setCurrentPage(currentPage - 1);
-                  }}
-                  className={
-                    currentPage === 1 ? "pointer-events-none opacity-50" : ""
-                  }
-                />
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink
-                  href="#"
-                  isActive={currentPage === 1}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCurrentPage(1);
-                  }}
-                >
-                  1
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink
-                  href="#"
-                  isActive={currentPage === 2}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCurrentPage(2);
-                  }}
-                >
-                  2
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink
-                  href="#"
-                  isActive={currentPage === 3}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCurrentPage(3);
-                  }}
-                >
-                  3
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink
-                  href="#"
-                  isActive={currentPage === totalPages}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCurrentPage(totalPages);
-                  }}
-                >
-                  {totalPages}
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationNext
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (currentPage < totalPages)
-                      setCurrentPage(currentPage + 1);
-                  }}
-                  className={
-                    currentPage === totalPages
-                      ? "pointer-events-none opacity-50"
-                      : ""
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </section> */}
       </div>
     </main>
   );

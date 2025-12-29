@@ -1,4 +1,6 @@
 "use client";
+
+import { useState } from "react";
 import {
   Navbar,
   NavBody,
@@ -10,35 +12,10 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
-import {
-  ArrowBendDownRightIcon,
-  ArrowRightIcon,
-  CaretCircleRightIcon,
-  CaretDoubleRightIcon,
-} from "@phosphor-icons/react";
-import { ArrowBendUpRightIcon } from "@phosphor-icons/react/dist/ssr";
-import { useState } from "react";
-
-const handleSmoothScroll = (
-  e: React.MouseEvent<HTMLAnchorElement>,
-  href: string
-) => {
-  if (href.startsWith("#")) {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      const headerOffset = 140; // Account for fixed header height + padding
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  }
-};
+import { CaretDoubleRightIcon } from "@phosphor-icons/react";
+import { handleSmoothScroll } from "@/lib/scroll-utils";
+import Link from "next/link";
+import { SIMULATOR_URLS } from "@/lib/constants";
 
 export function Header() {
   const navItems = [
@@ -65,14 +42,16 @@ export function Header() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
-          {/* <div className="flex items-center gap-4">
-            <NavbarButton variant="secondary">Login</NavbarButton>
-            <NavbarButton variant="primary">Book a call</NavbarButton>
-          </div> */}
-          <NavbarButton variant="primary" className="flex gap-2 items-center">
-            <span>Simulator</span>
-            <CaretDoubleRightIcon weight="duotone" size={20} />
-          </NavbarButton>
+          <Link
+            href={SIMULATOR_URLS.PRIMARY}
+            className="flex items-center"
+            aria-label="Open the DDoSim interactive simulator"
+          >
+            <NavbarButton variant="primary" className="flex gap-2 items-center">
+              <span>Simulator</span>
+              <CaretDoubleRightIcon weight="duotone" size={20} />
+            </NavbarButton>
+          </Link>
         </NavBody>
 
         {/* Mobile Navigation */}
@@ -102,36 +81,22 @@ export function Header() {
                 <span className="block">{item.name}</span>
               </a>
             ))}
-            {/* <div className="flex w-full flex-col gap-4">
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
-              >
-                Login
-              </NavbarButton>
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
-              >
-                Book a call
-              </NavbarButton>
-              
-            </div> */}
-            <NavbarButton
-              onClick={() => setIsMobileMenuOpen(false)}
-              variant="primary"
-              className="flex gap-2 items-center"
+            <Link
+              href={SIMULATOR_URLS.PRIMARY}
+              aria-label="Open the DDoSim interactive simulator"
             >
-              <span>Simulator</span>
-              <CaretDoubleRightIcon weight="duotone" size={20} />
-            </NavbarButton>
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+                variant="primary"
+                className="flex gap-2 items-center"
+              >
+                <span>Simulator</span>
+                <CaretDoubleRightIcon weight="duotone" size={20} />
+              </NavbarButton>
+            </Link>
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
-
-      {/* Navbar */}
     </div>
   );
 }

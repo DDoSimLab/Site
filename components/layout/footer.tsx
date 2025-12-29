@@ -1,5 +1,7 @@
 "use client";
+
 import Link from "next/link";
+import { handleSmoothScroll } from "@/lib/scroll-utils";
 
 const links = [
   {
@@ -14,28 +16,7 @@ const links = [
     title: "Blogs",
     href: "/blog",
   },
-];
-
-const handleSmoothScroll = (
-  e: React.MouseEvent<HTMLAnchorElement>,
-  href: string
-) => {
-  if (href.startsWith("#")) {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      const headerOffset = 140; // Account for fixed header height + padding
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  }
-};
+] as const;
 
 export function Footer() {
   return (

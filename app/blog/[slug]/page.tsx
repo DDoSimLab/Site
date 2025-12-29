@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { BlogPost } from "@/data/blogs";
 import { blogPosts, getBlogBySlug } from "@/data/blogs";
 import {
   ArrowLeftIcon,
@@ -10,8 +11,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { BlogContent } from "@/components/blog/BlogContent";
 
+type BlogPostRouteParams = {
+  slug: string;
+};
+
 interface BlogPostPageProps {
-  params: Promise<{ slug: string }>;
+  params: BlogPostRouteParams;
 }
 
 export async function generateStaticParams() {
@@ -23,7 +28,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = params;
   const post = getBlogBySlug(slug);
 
   if (!post) {
@@ -64,8 +69,27 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
+function buildBlogPostJsonLd(post: BlogPost) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    image: post.image,
+    datePublished: post.publishedAt,
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "DDoSim",
+    },
+  };
+}
+
+export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = params;
   const post = getBlogBySlug(slug);
 
   if (!post) {
@@ -89,7 +113,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-background via-background/80 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
           <div className="container mx-auto max-w-4xl">
             <Link
@@ -155,22 +179,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.title,
-            description: post.description,
-            image: post.image,
-            datePublished: post.publishedAt,
-            author: {
-              "@type": "Person",
-              name: post.author,
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "DDoSim",
-            },
-          }),
+          __html: JSON.stringify(buildBlogPostJsonLd(post)),
         }}
       />
     </article>

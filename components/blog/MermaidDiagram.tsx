@@ -10,7 +10,9 @@ interface MermaidDiagramProps {
 export function MermaidDiagram({ chart }: MermaidDiagramProps) {
   const mermaidRef = useRef<HTMLDivElement>(null);
   const [isRendered, setIsRendered] = useState(false);
-  const idRef = useRef(`mermaid-${Math.random().toString(36).substring(2, 11)}`);
+  const idRef = useRef(
+    `mermaid-${Math.random().toString(36).substring(2, 11)}`
+  );
 
   useEffect(() => {
     if (!mermaidRef.current || isRendered) return;
@@ -44,7 +46,9 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
           if (mermaidRef.current) {
             mermaidRef.current.innerHTML = `<div class="text-red-500 dark:text-red-400 p-4 bg-red-50 dark:bg-red-900/20 rounded border border-red-200 dark:border-red-800">
               <p class="font-semibold mb-2">Error rendering diagram</p>
-              <p class="text-sm">${error instanceof Error ? error.message : "Unknown error"}</p>
+              <p class="text-sm">${
+                error instanceof Error ? error.message : "Unknown error"
+              }</p>
             </div>`;
           }
         }
@@ -63,4 +67,3 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
     </div>
   );
 }
-
