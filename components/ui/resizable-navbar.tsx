@@ -1,4 +1,5 @@
 "use client";
+import { SITE_URLS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ListIcon, XIcon } from "@phosphor-icons/react";
 import {
@@ -10,6 +11,7 @@ import {
 import Image from "next/image";
 
 import React, { useRef, useState } from "react";
+import { GithubButton } from "./github-button";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -29,6 +31,7 @@ interface NavItemsProps {
   }[];
   className?: string;
   onItemClick?: () => void;
+  stars: number;
 }
 
 interface MobileNavProps {
@@ -116,7 +119,12 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   );
 };
 
-export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
+export const NavItems = ({
+  items,
+  className,
+  onItemClick,
+  stars,
+}: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
   const handleClick = (
@@ -168,6 +176,14 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
           <span className="relative z-20">{item.name}</span>
         </a>
       ))}
+      <GithubButton
+        variant={"outline"}
+        separator={true}
+        roundStars={true}
+        targetStars={stars}
+        repoUrl={SITE_URLS.GITHUB_REPO}
+        className="place-self-end"
+      />
     </motion.div>
   );
 };

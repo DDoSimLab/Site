@@ -59,19 +59,35 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+async function getStars() {
+  const res = await fetch(SITE_URLS.GITHUB_REPO_API, {
+    next: { revalidate: 600 }, // cache for 1 hour
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+
+  const data = await res.json();
+
+  return data.stargazers_count as number;
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const stars = await getStars();
+
   return (
     <html lang="en" className={`${inter.variable} h-svh`}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full flex flex-col`}
       >
-        <Header />
+        <Header stars={stars!} />
         <div className="flex-1">{children}</div>
-        <Footer />
+        <Footer stars={stars!} />
       </body>
     </html>
   );

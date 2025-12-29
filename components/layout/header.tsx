@@ -15,9 +15,14 @@ import {
 import { CaretDoubleRightIcon } from "@phosphor-icons/react";
 import { handleSmoothScroll } from "@/lib/scroll-utils";
 import Link from "next/link";
-import { SIMULATOR_URLS, NAVIGATION, TEXT_CONTENT, ICON_SIZES } from "@/lib/constants";
+import {
+  SIMULATOR_URLS,
+  NAVIGATION,
+  TEXT_CONTENT,
+  ICON_SIZES,
+} from "@/lib/constants";
 
-export function Header() {
+export function Header({ stars }: { stars: number }) {
   const navItems = NAVIGATION.ITEMS;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,7 +33,7 @@ export function Header() {
         {/* Desktop Navigation */}
         <NavBody>
           <NavbarLogo />
-          <NavItems items={navItems} />
+          <NavItems items={navItems} stars={stars} />
           <Link
             href={SIMULATOR_URLS.PRIMARY}
             className="flex items-center"
@@ -78,7 +83,10 @@ export function Header() {
                 className="flex gap-2 items-center"
               >
                 <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>
-                <CaretDoubleRightIcon weight="duotone" size={ICON_SIZES.MEDIUM} />
+                <CaretDoubleRightIcon
+                  weight="duotone"
+                  size={ICON_SIZES.MEDIUM}
+                />
               </NavbarButton>
             </Link>
           </MobileNavMenu>
