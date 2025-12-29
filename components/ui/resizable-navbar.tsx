@@ -144,8 +144,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       }}
       className={cn(
         "relative z-60 mx-auto gap-6 hidden w-full flex-row h-16 items-center justify-between self-start bg-background px-6 py-2 lg:flex dark:bg-transparent",
-        visible ? "rounded-(--radius)" : "rounded-t-(--radius)",
-        visible && "bg-white dark:bg-neutral-950/80 border-none",
+        visible &&
+          "bg-white dark:bg-neutral-950/80 border-none rounded-(--radius)",
         !visible && "border-b border-neutral-200 dark:border-neutral-800",
         className
       )}
@@ -208,7 +208,6 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
           ? "rgba(0, 0, 0, 0.1) 0px 0px 20px, rgba(0, 0, 0, 0.06) 0px 1px 0px, rgba(0, 0, 0, 0.07) 0px 0px 0px 4px, rgba(34, 42, 53, 0.08) 0px 0px 0px, rgba(47, 48, 55, 0.05) 0px 0px 0px, rgba(255, 255, 255, 0.1) 0px 0px 0px inset"
           : "none",
         borderBottom: visible ? "none" : "1px solid rgba(0, 0, 0, 0.08)",
-        borderRadius: visible ? "4px" : "none",
         width: visible ? "85%" : "100%",
         y: visible ? 20 : 0,
       }}
@@ -219,9 +218,8 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
       }}
       className={cn(
         "relative z-50 mx-auto flex w-full flex-col items-center justify-between px-4 bg-background py-2 lg:hidden",
-        visible && "bg-white/80 dark:bg-neutral-950/80 rounded-md",
-        !visible &&
-          "border-b border-neutral-200 dark:border-neutral-800 rounded-t-md",
+        !visible && "border-b border-neutral-200 dark:border-neutral-800",
+        visible && "rounded-(--radius)",
         className
       )}
     >
