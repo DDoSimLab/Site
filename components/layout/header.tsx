@@ -19,11 +19,36 @@ import {
 import { ArrowBendUpRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { useState } from "react";
 
+const handleSmoothScroll = (
+  e: React.MouseEvent<HTMLAnchorElement>,
+  href: string
+) => {
+  if (href.startsWith("#")) {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      const headerOffset = 100; // Account for fixed header height + padding
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  }
+};
+
 export function Header() {
   const navItems = [
     {
       name: "Features",
       link: "#features",
+    },
+    {
+      name: "About Us",
+      link: "#about",
     },
     {
       name: "Blogs",
@@ -68,7 +93,10 @@ export function Header() {
               <a
                 key={`mobile-link-${idx}`}
                 href={item.link}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => {
+                  handleSmoothScroll(e, item.link);
+                  setIsMobileMenuOpen(false);
+                }}
                 className="relative text-neutral-600 dark:text-neutral-300"
               >
                 <span className="block">{item.name}</span>

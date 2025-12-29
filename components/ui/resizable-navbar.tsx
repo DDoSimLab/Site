@@ -119,6 +119,30 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: { name: string; link: string }
+  ) => {
+    if (item.link.startsWith("#")) {
+      e.preventDefault();
+      const element = document.querySelector(item.link);
+      if (element) {
+        const headerOffset = 100; // Account for fixed header height + padding
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+    if (onItemClick) {
+      onItemClick();
+    }
+  };
+
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
@@ -130,7 +154,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
+          onClick={(e) => handleClick(e, item)}
           className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
           key={`link-${idx}`}
           href={item.link}

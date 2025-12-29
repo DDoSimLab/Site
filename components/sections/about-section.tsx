@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function AboutSection() {
   return (
-    <section className="about-section py-16">
+    <section id="about" className="about-section py-16 scroll-mt-24">
       <div className="container mx-auto px-8 max-w-7xl">
         <div className="gap-8 items-center">
           {/* Left Column - Text Content */}

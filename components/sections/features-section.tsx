@@ -8,7 +8,10 @@ import Image from "next/image";
 
 export function FeaturesSection() {
   return (
-    <section className="features-section mb-10 z-3 relative">
+    <section
+      id="features"
+      className="features-section mb-10 z-3 relative scroll-mt-24"
+    >
       <div className="features-container container mx-auto max-w-7xl px-8 relative">
         <div className="mx-auto space-y-8 md:space-y-12">
           {/* <div className="relative z-0 max-w-2xl">
