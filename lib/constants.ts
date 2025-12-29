@@ -91,7 +91,7 @@ export const NAVIGATION = {
       name: "Blogs",
       link: "/blog",
     },
-  ],
+  ] as Array<{ name: string; link: string }>,
   SECTIONS: {
     FEATURES: "#features",
     ABOUT: "#about",
