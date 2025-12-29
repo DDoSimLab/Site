@@ -1,28 +1,27 @@
 import { MetadataRoute } from "next";
 import { blogPosts } from "@/data/blogs";
+import { SITE_URLS, SITEMAP, ROUTES } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ddosim.com";
-
   const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+    url: `${SITE_URLS.BASE}${ROUTES.BLOG_SLUG(post.slug)}`,
     lastModified: new Date(post.publishedAt),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
+    changeFrequency: SITEMAP.BLOG_POST.CHANGE_FREQUENCY,
+    priority: SITEMAP.BLOG_POST.PRIORITY,
   }));
 
   return [
     {
-      url: baseUrl,
+      url: SITE_URLS.BASE,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
+      changeFrequency: SITEMAP.HOME.CHANGE_FREQUENCY,
+      priority: SITEMAP.HOME.PRIORITY,
     },
     {
-      url: `${baseUrl}/blog`,
+      url: `${SITE_URLS.BASE}${ROUTES.BLOG}`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
+      changeFrequency: SITEMAP.BLOG.CHANGE_FREQUENCY,
+      priority: SITEMAP.BLOG.PRIORITY,
     },
     ...blogEntries,
   ];

@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
+import {
+  SITE_METADATA,
+  ROUTES,
+  SITE_METADATA as METADATA,
+} from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Blog | DDoSim - Cybersecurity Articles and Guides",
-  description:
-    "Explore our collection of cybersecurity articles, DDoS attack guides, network security best practices, and educational content.",
+  title: SITE_METADATA.TITLE.BLOG,
+  description: SITE_METADATA.DESCRIPTION.BLOG,
   openGraph: {
-    title: "Blog | DDoSim - Cybersecurity Articles and Guides",
-    description:
-      "Explore our collection of cybersecurity articles, DDoS attack guides, network security best practices, and educational content.",
-    type: "website",
-    url: "/blog",
+    title: SITE_METADATA.TITLE.BLOG,
+    description: SITE_METADATA.DESCRIPTION.BLOG,
+    type: METADATA.OPEN_GRAPH.TYPE,
+    url: ROUTES.BLOG,
   },
   alternates: {
-    canonical: "/blog",
+    canonical: ROUTES.BLOG,
   },
 };
 

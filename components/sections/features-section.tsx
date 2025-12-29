@@ -5,20 +5,26 @@ import {
   SparkleIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import {
+  TEXT_CONTENT,
+  NAVIGATION,
+  IMAGE_DIMENSIONS,
+} from "@/lib/constants";
 
 export function FeaturesSection() {
   return (
     <section
-      id="features"
+      id={NAVIGATION.SECTIONS.FEATURES.replace("#", "")}
       className="features-section mb-10 z-3 relative scroll-mt-36"
     >
       <div className="features-container container mx-auto max-w-7xl px-8 relative">
         <div className="mx-auto space-y-8 md:space-y-12">
           <div className="relative z-0 max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold">Features</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              {TEXT_CONTENT.FEATURES.TITLE}
+            </h2>
             <p className="mt-6 text-gray-700">
-              DDoSim lets you quickly model, visualize, and understand DDoS
-              attack and defense strategies with a beautiful, interactive globe.
+              {TEXT_CONTENT.FEATURES.DESCRIPTION}
             </p>
           </div>
           <div className="flex flex-col gap-8 lg:flex-row items-center">
@@ -30,22 +36,22 @@ export function FeaturesSection() {
                       src="/mail-upper2.png"
                       className="absolute inset-0 z-0"
                       alt="payments illustration dark"
-                      width={1000}
-                      height={1137}
+                      width={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.WIDTH}
+                      height={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.HEIGHT}
                     />
                     <Image
                       src="/mail-upper2.png"
                       className="hidden dark:block"
                       alt="payments illustration dark"
-                      width={1000}
-                      height={1137}
+                      width={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.WIDTH}
+                      height={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.HEIGHT}
                     />
                     <Image
                       src="/mail-upper2.png"
                       className="dark:hidden"
                       alt="payments illustration light"
-                      width={1000}
-                      height={1137}
+                      width={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.WIDTH}
+                      height={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.HEIGHT}
                     />
                   </div>
                 </div>
@@ -56,46 +62,44 @@ export function FeaturesSection() {
                 <div className="flex items-center gap-2">
                   <LightningIcon className="size-4" />
                   <h3 className="text-sm font-medium">
-                    Instant DDoS Attack Simulation
+                    {TEXT_CONTENT.FEATURES.ITEMS[0].TITLE}
                   </h3>
                 </div>
                 <p className="text-muted-foreground text-sm">
-                  Model high-volume attack traffic and defense strategies in
-                  seconds—no server setup required.
+                  {TEXT_CONTENT.FEATURES.ITEMS[0].DESCRIPTION}
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <CpuIcon className="size-4" />
                   <h3 className="text-sm font-medium">
-                    Interactive, Real-Time Visualization
+                    {TEXT_CONTENT.FEATURES.ITEMS[1].TITLE}
                   </h3>
                 </div>
                 <p className="text-muted-foreground text-sm">
-                  Watch attack and mitigation flows on a beautiful globe,
-                  enabling deeper understanding at a glance.
+                  {TEXT_CONTENT.FEATURES.ITEMS[1].DESCRIPTION}
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <LockIcon className="size-4" />
-                  <h3 className="text-sm font-medium">Safe & Educational</h3>
+                  <h3 className="text-sm font-medium">
+                    {TEXT_CONTENT.FEATURES.ITEMS[2].TITLE}
+                  </h3>
                 </div>
                 <p className="text-muted-foreground text-sm">
-                  Safely simulate scenarios for training, workshops, and
-                  CTFs—without risking real infrastructure.
+                  {TEXT_CONTENT.FEATURES.ITEMS[2].DESCRIPTION}
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <SparkleIcon className="size-4" />
                   <h3 className="text-sm font-medium">
-                    Flexible, Extensible Workflows
+                    {TEXT_CONTENT.FEATURES.ITEMS[3].TITLE}
                   </h3>
                 </div>
                 <p className="text-muted-foreground text-sm">
-                  Script your own event scenarios or integrate with blue team
-                  tools to customize simulations to your needs.
+                  {TEXT_CONTENT.FEATURES.ITEMS[3].DESCRIPTION}
                 </p>
               </div>
             </div>

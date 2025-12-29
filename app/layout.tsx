@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { SITE_URLS, SITE_METADATA, IMAGE_DIMENSIONS } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -16,57 +17,44 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddosim.com";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(SITE_URLS.BASE),
   title: {
-    default: "DDoSim - Interactive DDoS Attack Simulation & Visualization",
-    template: "%s | DDoSim",
+    default: SITE_METADATA.TITLE.DEFAULT,
+    template: SITE_METADATA.TITLE.TEMPLATE,
   },
-  description:
-    "Experience real-time DDoS attack simulations with interactive global mapping, analytics, and educational insights. Visualize distributed denial-of-service attacks from multiple locations worldwide.",
-  keywords: [
-    "DDoS simulation",
-    "DDoS attacks",
-    "cybersecurity",
-    "network security",
-    "attack visualization",
-    "security education",
-    "DDoS training",
-  ],
+  description: SITE_METADATA.DESCRIPTION.DEFAULT,
+  keywords: [...SITE_METADATA.KEYWORDS],
   openGraph: {
-    type: "website",
-    siteName: "DDoSim",
-    url: baseUrl,
-    title: "DDoSim - Interactive DDoS Attack Simulation & Visualization",
-    description:
-      "Interactive DDoS attack simulations with real-time global visualization and educational insights.",
+    type: SITE_METADATA.OPEN_GRAPH.TYPE,
+    siteName: SITE_METADATA.NAME,
+    url: SITE_URLS.BASE,
+    title: SITE_METADATA.TITLE.DEFAULT,
+    description: SITE_METADATA.DESCRIPTION.OPEN_GRAPH,
     images: [
       {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "DDoSim - DDoS attack simulation and visualization",
+        url: SITE_METADATA.OPEN_GRAPH.IMAGE.URL,
+        width: IMAGE_DIMENSIONS.OG_IMAGE.WIDTH,
+        height: IMAGE_DIMENSIONS.OG_IMAGE.HEIGHT,
+        alt: SITE_METADATA.OPEN_GRAPH.IMAGE.ALT,
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "DDoSim - Interactive DDoS Attack Simulation & Visualization",
-    description:
-      "Simulate and visualize DDoS attacks in real time for education, training, and research.",
-    images: ["/og-image.jpg"],
+    card: SITE_METADATA.TWITTER.CARD,
+    title: SITE_METADATA.TITLE.DEFAULT,
+    description: SITE_METADATA.DESCRIPTION.TWITTER,
+    images: [SITE_METADATA.OPEN_GRAPH.IMAGE.URL],
   },
   alternates: {
     canonical: "/",
   },
   robots: {
-    index: true,
-    follow: true,
+    index: SITE_METADATA.ROBOTS.INDEX,
+    follow: SITE_METADATA.ROBOTS.FOLLOW,
     googleBot: {
-      index: true,
-      follow: true,
+      index: SITE_METADATA.ROBOTS.INDEX,
+      follow: SITE_METADATA.ROBOTS.FOLLOW,
     },
   },
 };

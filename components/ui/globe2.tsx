@@ -5,49 +5,23 @@ import createGlobe, { COBEOptions, Marker } from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
 
 import { cn } from "@/lib/utils";
-
-const MOVEMENT_DAMPING = 1400;
-
-// Define different colors for markers (RGB values 0-1)
-const MARKER_COLORS = [
-  [251 / 255, 100 / 255, 21 / 255], // Orange
-  [59 / 255, 130 / 255, 246 / 255], // Blue
-  [34 / 255, 197 / 255, 94 / 255], // Green
-  [168 / 255, 85 / 255, 247 / 255], // Purple
-  [236 / 255, 72 / 255, 153 / 255], // Pink
-  [251 / 255, 191 / 255, 36 / 255], // Yellow
-  [239 / 255, 68 / 255, 68 / 255], // Red
-  [14 / 255, 165 / 255, 233 / 255], // Cyan
-  [139 / 255, 92 / 255, 246 / 255], // Indigo
-  [20 / 255, 184 / 255, 166 / 255], // Teal
-];
+import { GLOBE } from "@/lib/constants";
 
 const GLOBE_CONFIG: COBEOptions = {
-  width: 800,
-  height: 800,
+  width: GLOBE.CONFIG.WIDTH,
+  height: GLOBE.CONFIG.HEIGHT,
   onRender: () => {},
-  devicePixelRatio: 2,
-  phi: 0,
-  theta: 0.3,
-  dark: 0,
-  diffuse: 0.4,
-  mapSamples: 16000,
-  mapBrightness: 1.2,
-  baseColor: [1, 1, 1],
-  markerColor: [251 / 255, 100 / 255, 21 / 255], // Default fallback color
-  glowColor: [1, 1, 1],
-  markers: [
-    { location: [14.5995, 120.9842], size: 0.03 },
-    { location: [19.076, 72.8777], size: 0.1 },
-    { location: [23.8103, 90.4125], size: 0.05 },
-    { location: [30.0444, 31.2357], size: 0.07 },
-    { location: [39.9042, 116.4074], size: 0.08 },
-    { location: [-23.5505, -46.6333], size: 0.1 },
-    { location: [19.4326, -99.1332], size: 0.1 },
-    { location: [40.7128, -74.006], size: 0.1 },
-    { location: [34.6937, 135.5022], size: 0.05 },
-    { location: [41.0082, 28.9784], size: 0.06 },
-  ],
+  devicePixelRatio: GLOBE.CONFIG.DEVICE_PIXEL_RATIO,
+  phi: GLOBE.CONFIG.PHI,
+  theta: GLOBE.CONFIG.THETA,
+  dark: GLOBE.CONFIG.DARK,
+  diffuse: GLOBE.CONFIG.DIFFUSE,
+  mapSamples: GLOBE.CONFIG.MAP_SAMPLES,
+  mapBrightness: GLOBE.CONFIG.MAP_BRIGHTNESS,
+  baseColor: GLOBE.CONFIG.BASE_COLOR,
+  markerColor: GLOBE.CONFIG.MARKER_COLOR,
+  glowColor: GLOBE.CONFIG.GLOW_COLOR,
+  markers: GLOBE.CONFIG.MARKERS,
 };
 
 export function Globe({
@@ -67,9 +41,9 @@ export function Globe({
 
   const r = useMotionValue(0);
   const rs = useSpring(r, {
-    mass: 1,
-    damping: 30,
-    stiffness: 100,
+    mass: GLOBE.SPRING.MASS,
+    damping: GLOBE.SPRING.DAMPING,
+    stiffness: GLOBE.SPRING.STIFFNESS,
   });
 
   const updatePointerInteraction = (value: number | null) => {
@@ -83,7 +57,7 @@ export function Globe({
     if (pointerInteracting.current !== null) {
       const delta = clientX - pointerInteracting.current;
       pointerInteractionMovement.current = delta;
-      r.set(r.get() + delta / MOVEMENT_DAMPING);
+      r.set(r.get() + delta / GLOBE.MOVEMENT_DAMPING);
     }
   };
 
@@ -99,12 +73,14 @@ export function Globe({
 
     // Store original sizes for animation
     const markers = config.markers || [];
-    originalSizesRef.current = markers.map((m) => m.size || 0.05);
+    originalSizesRef.current = markers.map(
+      (m) => m.size || GLOBE.ANIMATION.DEFAULT_SIZE
+    );
 
     // Create markers with individual colors - each marker gets a different color
     const markersWithColors = markers.map((marker, index) => ({
       ...marker,
-      color: MARKER_COLORS[index % MARKER_COLORS.length] as [
+      color: GLOBE.MARKER_COLORS[index % GLOBE.MARKER_COLORS.length] as [
         number,
         number,
         number
@@ -117,25 +93,28 @@ export function Globe({
       width: width * 2,
       height: width * 2,
       onRender: (state) => {
-        if (!pointerInteracting.current) phi += 0.005;
+        if (!pointerInteracting.current) phi += GLOBE.ANIMATION.PHI_INCREMENT;
         state.phi = phi + rs.get();
         state.width = width * 2;
         state.height = width * 2;
 
         // Ping/pulse animation for markers
-        pulseRef.current += 0.02; // Animation speed
+        pulseRef.current += GLOBE.ANIMATION.PULSE_SPEED;
         const pulse = pulseRef.current;
 
         if (state.markers && state.markers.length > 0) {
           state.markers.forEach((marker: Marker, index: number) => {
             // Each marker pulses with a slight phase offset for staggered effect
-            const phase = (pulse + index * 0.5) % (2 * Math.PI);
-            // Pulse size oscillates between 80% and 120% of original size
+            const phase =
+              (pulse + index * GLOBE.ANIMATION.PHASE_OFFSET) % (2 * Math.PI);
+            // Pulse size oscillates between min and max scale of original size
             const pulseScale = (Math.sin(phase) + 1) / 2; // 0 to 1
-            const minScale = 0.8;
-            const maxScale = 1.2;
-            const scale = minScale + (maxScale - minScale) * pulseScale;
-            const originalSize = originalSizesRef.current[index] || 0.05;
+            const scale =
+              GLOBE.ANIMATION.MIN_SCALE +
+              (GLOBE.ANIMATION.MAX_SCALE - GLOBE.ANIMATION.MIN_SCALE) *
+                pulseScale;
+            const originalSize =
+              originalSizesRef.current[index] || GLOBE.ANIMATION.DEFAULT_SIZE;
             marker.size = originalSize * scale;
           });
         }

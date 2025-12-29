@@ -1,7 +1,12 @@
 import { CaretDoubleRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { SIMULATOR_URLS } from "@/lib/constants";
+import {
+  SIMULATOR_URLS,
+  TEXT_CONTENT,
+  COLORS,
+  ICON_SIZES,
+} from "@/lib/constants";
 import { Globe } from "../ui/globe2";
 import { Highlighter } from "../ui/highlighter";
 
@@ -20,30 +25,31 @@ export function HeroSection() {
               id="hero-heading"
               className="hero-heading text-3xl md:text-4xl font-bold"
             >
-              Experience Real-Time{" "}
-              <Highlighter action="highlight">DDoS</Highlighter> Attack
-              <Highlighter action="underline" color="#FF9800">
-                Simulations
+              {TEXT_CONTENT.HERO.HEADING.PART1}{" "}
+              <Highlighter action="highlight">
+                {TEXT_CONTENT.HERO.HEADING.PART2}
+              </Highlighter>{" "}
+              {TEXT_CONTENT.HERO.HEADING.PART3}{" "}
+              <Highlighter action="underline" color={COLORS.HIGHLIGHT_ORANGE}>
+                {TEXT_CONTENT.HERO.HEADING.PART4}
               </Highlighter>
             </h1>
 
             {/* Subheading/Description */}
             <div className="hero-description space-y-2">
               <p className="hero-description-text text-gray-700">
-                DDoSim is an interactive platform for simulating and visualizing
-                Distributed Denial-of-Service (DDoS) attacks in real time across
-                the globe.
+                {TEXT_CONTENT.HERO.DESCRIPTION}
               </p>
             </div>
 
             {/* Primary Button */}
             <Link
               href={SIMULATOR_URLS.PRIMARY}
-              aria-label="Open the DDoSim interactive DDoS attack simulator"
+              aria-label={TEXT_CONTENT.HERO.ARIA_LABEL}
             >
               <Button variant="outline">
-                Simulator
-                <CaretDoubleRightIcon weight="duotone" size={20} />
+                {TEXT_CONTENT.BUTTONS.SIMULATOR}
+                <CaretDoubleRightIcon weight="duotone" size={ICON_SIZES.MEDIUM} />
               </Button>
             </Link>
           </div>

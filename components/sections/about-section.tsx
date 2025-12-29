@@ -1,18 +1,23 @@
 import { TargetIcon, EyeIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import { TEXT_CONTENT, NAVIGATION } from "@/lib/constants";
 
 export function AboutSection() {
   return (
-    <section id="about" className="about-section py-16 scroll-mt-24">
+    <section
+      id={NAVIGATION.SECTIONS.ABOUT.replace("#", "")}
+      className="about-section py-16 scroll-mt-24"
+    >
       <div className="container mx-auto px-8 max-w-7xl">
         <div className="gap-8 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-6 order-2 md:order-1">
             <div className="space-y-2">
-              <h2 className="text-3xl md:text-4xl font-bold">About DDoSim</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">
+                {TEXT_CONTENT.ABOUT.TITLE}
+              </h2>
               <p className="text-gray-700 dark:text-gray-300 text-lg">
-                We're on a mission to make cybersecurity education accessible,
-                interactive, and engaging for everyone.
+                {TEXT_CONTENT.ABOUT.DESCRIPTION}
               </p>
             </div>
 
@@ -25,12 +30,11 @@ export function AboutSection() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">Our Mission</h3>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {TEXT_CONTENT.ABOUT.MISSION.TITLE}
+                  </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    To provide a powerful, educational platform that helps
-                    security professionals, students, and organizations
-                    understand DDoS attacks through interactive visualization
-                    and real-time simulation.
+                    {TEXT_CONTENT.ABOUT.MISSION.DESCRIPTION}
                   </p>
                 </div>
               </div>
@@ -40,11 +44,11 @@ export function AboutSection() {
                   <EyeIcon className="size-6 text-primary" weight="duotone" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">Our Vision</h3>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {TEXT_CONTENT.ABOUT.VISION.TITLE}
+                  </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    To become the leading platform for cybersecurity education,
-                    empowering the next generation of security professionals
-                    with hands-on experience in a safe, controlled environment.
+                    {TEXT_CONTENT.ABOUT.VISION.DESCRIPTION}
                   </p>
                 </div>
               </div>

@@ -1,13 +1,12 @@
 import type { MetadataRoute } from "next";
+import { SITE_URLS } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddosim.com";
-
   return {
     rules: {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${SITE_URLS.BASE}/sitemap.xml`,
   };
 }

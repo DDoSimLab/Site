@@ -7,9 +7,15 @@ import {
 import { getRecentBlogs } from "@/data/blogs";
 import Link from "next/link";
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
+import {
+  TEXT_CONTENT,
+  BLOG,
+  ROUTES,
+  ICON_SIZES,
+} from "@/lib/constants";
 
 export function BlogsSection() {
-  const recentBlogs = getRecentBlogs(3);
+  const recentBlogs = getRecentBlogs(BLOG.RECENT_POSTS_COUNT);
 
   return (
     <section className="blogs-section py-16">
@@ -24,7 +30,7 @@ export function BlogsSection() {
         </div>
         <div className="blogs-grid grid md:grid-cols-3 gap-6 z-20 mb-8">
           {recentBlogs.map((blog) => (
-            <Link key={blog.id} href={`/blog/${blog.slug}`}>
+            <Link key={blog.id} href={ROUTES.BLOG_SLUG(blog.slug)}>
               <MinimalCard className="h-full hover:shadow-lg transition-shadow cursor-pointer flex flex-col">
                 <MinimalCardImage src={blog.image} alt={blog.title} />
                 <div className="p-4 flex-1 flex flex-col">
@@ -35,8 +41,8 @@ export function BlogsSection() {
                     {blog.description}
                   </MinimalCardDescription>
                   <div className="mt-4 flex items-center gap-2 text-primary hover:underline">
-                    Read more
-                    <ArrowRightIcon size={16} weight="duotone" />
+                    {TEXT_CONTENT.BLOG.PAGE.READ_MORE}
+                    <ArrowRightIcon size={ICON_SIZES.SMALL} weight="duotone" />
                   </div>
                 </div>
               </MinimalCard>
@@ -45,11 +51,11 @@ export function BlogsSection() {
         </div>
         <div className="text-center">
           <Link
-            href="/blog"
+            href={ROUTES.BLOG}
             className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
           >
-            View All Articles
-            <ArrowRightIcon size={16} weight="duotone" />
+            {TEXT_CONTENT.BLOG.PAGE.VIEW_ALL}
+            <ArrowRightIcon size={ICON_SIZES.SMALL} weight="duotone" />
           </Link>
         </div>
       </div>

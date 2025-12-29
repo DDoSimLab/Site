@@ -10,6 +10,15 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { BlogContent } from "@/components/blog/BlogContent";
+import {
+  SITE_METADATA,
+  SITE_URLS,
+  ROUTES,
+  TEXT_CONTENT,
+  IMAGE_DIMENSIONS,
+  BLOG,
+  ICON_SIZES,
+} from "@/lib/constants";
 
 type BlogPostRouteParams = {
   slug: string;
@@ -33,12 +42,15 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Blog Post Not Found",
+      title: SITE_METADATA.TITLE.NOT_FOUND,
     };
   }
 
   return {
-    title: `${post.title} | DDoSim Blog`,
+    title: `${post.title} ${SITE_METADATA.TITLE.BLOG_POST_TEMPLATE.replace(
+      "%s",
+      ""
+    ).trim()}`,
     description: post.description,
     authors: [{ name: post.author }],
     openGraph: {
@@ -50,29 +62,29 @@ export async function generateMetadata({
       images: [
         {
           url: post.image,
-          width: 1200,
-          height: 630,
+          width: IMAGE_DIMENSIONS.OG_IMAGE.WIDTH,
+          height: IMAGE_DIMENSIONS.OG_IMAGE.HEIGHT,
           alt: post.title,
         },
       ],
     },
     twitter: {
-      card: "summary_large_image",
+      card: SITE_METADATA.TWITTER.CARD,
       title: post.title,
       description: post.description,
       images: [post.image],
     },
     keywords: post.tags,
     alternates: {
-      canonical: `/blog/${post.slug}`,
+      canonical: ROUTES.BLOG_SLUG(post.slug),
     },
   };
 }
 
 function buildBlogPostJsonLd(post: BlogPost) {
   return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@context": SITE_URLS.SCHEMA_ORG,
+    "@type": BLOG.SCHEMA_TYPE,
     headline: post.title,
     description: post.description,
     image: post.image,
@@ -83,7 +95,7 @@ function buildBlogPostJsonLd(post: BlogPost) {
     },
     publisher: {
       "@type": "Organization",
-      name: "DDoSim",
+      name: BLOG.PUBLISHER_NAME,
     },
   };
 }
@@ -105,7 +117,12 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <article className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden">
+      <div
+        className="relative w-full overflow-hidden"
+        style={{
+          height: `clamp(${IMAGE_DIMENSIONS.BLOG_HERO.MOBILE_HEIGHT}px, 50vh, ${IMAGE_DIMENSIONS.BLOG_HERO.DESKTOP_HEIGHT}px)`,
+        }}
+      >
         <Image
           src={post.image}
           alt={post.title}
@@ -117,26 +134,26 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
           <div className="container mx-auto max-w-4xl">
             <Link
-              href="/blog"
+              href={ROUTES.BLOG}
               className="inline-flex items-center gap-2 text-primary hover:underline mb-4"
             >
-              <ArrowLeftIcon size={16} weight="duotone" />
-              Back to Blog
+              <ArrowLeftIcon size={ICON_SIZES.SMALL} weight="duotone" />
+              {TEXT_CONTENT.BLOG.POST.BACK_TO_BLOG}
             </Link>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               {post.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
-                <CalendarIcon size={16} weight="duotone" />
+                <CalendarIcon size={ICON_SIZES.SMALL} weight="duotone" />
                 <time dateTime={post.publishedAt}>{publishedDate}</time>
               </div>
               <div className="flex items-center gap-2">
-                <ClockIcon size={16} weight="duotone" />
-                {post.readTime} min read
+                <ClockIcon size={ICON_SIZES.SMALL} weight="duotone" />
+                {post.readTime} {TEXT_CONTENT.BLOG.POST.MIN_READ}
               </div>
               <div>
-                By{" "}
+                {TEXT_CONTENT.BLOG.POST.BY}{" "}
                 <span className="font-medium text-foreground">
                   {post.author}
                 </span>
@@ -166,11 +183,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Back to Blog Link */}
         <div className="mt-12 pt-8 border-t">
           <Link
-            href="/blog"
+            href={ROUTES.BLOG}
             className="inline-flex items-center gap-2 text-primary hover:underline"
           >
-            <ArrowLeftIcon size={16} weight="duotone" />
-            Back to All Blogs
+            <ArrowLeftIcon size={ICON_SIZES.SMALL} weight="duotone" />
+            {TEXT_CONTENT.BLOG.POST.BACK_TO_ALL}
           </Link>
         </div>
       </div>

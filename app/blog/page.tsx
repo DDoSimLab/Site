@@ -11,6 +11,12 @@ import { Input } from "@/components/ui/input";
 import { MagnifyingGlassIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { blogPosts } from "@/data/blogs";
 import Link from "next/link";
+import {
+  TEXT_CONTENT,
+  ROUTES,
+  BLOG,
+  ICON_SIZES,
+} from "@/lib/constants";
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,11 +42,10 @@ export default function BlogPage() {
             id="blog-page-title"
             className="text-3xl md:text-4xl font-bold mb-2"
           >
-            Cybersecurity Articles & DDoS Guides
+            {TEXT_CONTENT.BLOG.PAGE.TITLE}
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl">
-            Read in-depth articles on distributed denial-of-service attacks,
-            network security architecture, and modern cyber threat trends.
+            {TEXT_CONTENT.BLOG.PAGE.DESCRIPTION}
           </p>
         </header>
 
@@ -58,10 +63,10 @@ export default function BlogPage() {
                 />
                 <Input
                   type="search"
-                  placeholder="Search articles by title, topic, or tag..."
+                  placeholder={TEXT_CONTENT.BLOG.PAGE.SEARCH_PLACEHOLDER}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  aria-label="Search blog articles"
+                  aria-label={TEXT_CONTENT.BLOG.PAGE.SEARCH_ARIA_LABEL}
                   className="pl-12 pr-4 h-12 text-base bg-background/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/30 focus-visible:border-primary/50 focus-visible:ring-primary/20 transition-all duration-200 rounded-xl"
                 />
               </div>
@@ -74,13 +79,13 @@ export default function BlogPage() {
           {filteredPosts.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground text-lg">
-                No blog posts found matching your search.
+                {TEXT_CONTENT.BLOG.PAGE.NO_RESULTS}
               </p>
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-6">
               {filteredPosts.map((post) => (
-                <Link key={post.id} href={`/blog/${post.slug}`}>
+                <Link key={post.id} href={ROUTES.BLOG_SLUG(post.slug)}>
                   <MinimalCard className="h-full hover:shadow-lg transition-shadow cursor-pointer flex flex-col">
                     <MinimalCardImage src={post.image} alt={post.title} />
                     <div className="p-4 flex-1 flex flex-col">
@@ -91,18 +96,20 @@ export default function BlogPage() {
                         {post.description}
                       </MinimalCardDescription>
                       <div className="flex flex-wrap gap-2 mt-3">
-                        {post.tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 py-1 bg-primary/10 text-primary rounded text-xs font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                        {post.tags
+                          .slice(0, BLOG.MAX_TAGS_DISPLAY)
+                          .map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 py-1 bg-primary/10 text-primary rounded text-xs font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
                       </div>
                       <div className="mt-4 flex items-center gap-2 text-primary hover:underline">
-                        <span>Read more</span>
-                        <ArrowRightIcon size={16} weight="duotone" />
+                        <span>{TEXT_CONTENT.BLOG.PAGE.READ_MORE}</span>
+                        <ArrowRightIcon size={ICON_SIZES.SMALL} weight="duotone" />
                       </div>
                     </div>
                   </MinimalCard>

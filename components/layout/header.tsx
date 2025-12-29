@@ -15,23 +15,10 @@ import {
 import { CaretDoubleRightIcon } from "@phosphor-icons/react";
 import { handleSmoothScroll } from "@/lib/scroll-utils";
 import Link from "next/link";
-import { SIMULATOR_URLS } from "@/lib/constants";
+import { SIMULATOR_URLS, NAVIGATION, TEXT_CONTENT, ICON_SIZES } from "@/lib/constants";
 
 export function Header() {
-  const navItems = [
-    {
-      name: "Features",
-      link: "#features",
-    },
-    {
-      name: "About Us",
-      link: "#about",
-    },
-    {
-      name: "Blogs",
-      link: "/blog",
-    },
-  ];
+  const navItems = NAVIGATION.ITEMS;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -45,11 +32,11 @@ export function Header() {
           <Link
             href={SIMULATOR_URLS.PRIMARY}
             className="flex items-center"
-            aria-label="Open the DDoSim interactive simulator"
+            aria-label={TEXT_CONTENT.HERO.ARIA_LABEL}
           >
             <NavbarButton variant="primary" className="flex gap-2 items-center">
-              <span>Simulator</span>
-              <CaretDoubleRightIcon weight="duotone" size={20} />
+              <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>
+              <CaretDoubleRightIcon weight="duotone" size={ICON_SIZES.MEDIUM} />
             </NavbarButton>
           </Link>
         </NavBody>
@@ -83,15 +70,15 @@ export function Header() {
             ))}
             <Link
               href={SIMULATOR_URLS.PRIMARY}
-              aria-label="Open the DDoSim interactive simulator"
+              aria-label={TEXT_CONTENT.HERO.ARIA_LABEL}
             >
               <NavbarButton
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
                 className="flex gap-2 items-center"
               >
-                <span>Simulator</span>
-                <CaretDoubleRightIcon weight="duotone" size={20} />
+                <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>
+                <CaretDoubleRightIcon weight="duotone" size={ICON_SIZES.MEDIUM} />
               </NavbarButton>
             </Link>
           </MobileNavMenu>
