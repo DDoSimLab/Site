@@ -227,6 +227,31 @@ export const GLOBE = {
       { location: [40.7128, -74.006], size: 0.1 },
       { location: [34.6937, 135.5022], size: 0.05 },
       { location: [41.0082, 28.9784], size: 0.06 },
+      { location: [51.5074, -0.1278], size: 0.09 }, // London, UK
+      { location: [48.8566, 2.3522], size: 0.08 }, // Paris, France
+      { location: [-33.8688, 151.2093], size: 0.07 }, // Sydney, Australia
+      { location: [-26.2041, 28.0473], size: 0.06 }, // Johannesburg, South Africa
+      { location: [55.7558, 37.6173], size: 0.08 }, // Moscow, Russia
+      { location: [37.5665, 126.978], size: 0.07 }, // Seoul, South Korea
+      { location: [1.3521, 103.8198], size: 0.05 }, // Singapore
+      { location: [25.2048, 55.2708], size: 0.06 }, // Dubai, UAE
+      { location: [6.5244, 3.3792], size: 0.05 }, // Lagos, Nigeria
+      { location: [-34.6037, -58.3816], size: 0.07 }, // Buenos Aires, Argentina
+      { location: [43.6532, -79.3832], size: 0.08 }, // Toronto, Canada
+      // { location: [34.0522, -118.2437], size: 0.09 }, // Los Angeles, USA
+      // { location: [41.8781, -87.6298], size: 0.08 }, // Chicago, USA
+      // { location: [39.9526, -75.1652], size: 0.07 }, // Philadelphia, USA
+      { location: [32.7767, -96.797], size: 0.06 }, // Dallas, USA
+      { location: [37.7749, -122.4194], size: 0.08 }, // San Francisco, USA
+      // { location: [47.6062, -122.3321], size: 0.07 }, // Seattle, USA
+      { location: [25.7617, -80.1918], size: 0.07 }, // Miami, USA
+      { location: [52.52, 13.405], size: 0.07 }, // Berlin, Germany
+      { location: [41.9028, 12.4964], size: 0.06 }, // Rome, Italy
+      { location: [13.7563, 100.5018], size: 0.05 }, // Bangkok, Thailand
+      { location: [59.9343, 30.3351], size: 0.05 }, // Saint Petersburg, Russia
+      { location: [22.3193, 114.1694], size: 0.04 }, // Hong Kong
+      { location: [-22.9068, -43.1729], size: 0.08 }, // Rio de Janeiro, Brazil
+      { location: [28.6139, 77.209], size: 0.09 }, // New Delhi, India
     ] as Array<{ location: [number, number]; size: number }>,
   },
   ANIMATION: {
