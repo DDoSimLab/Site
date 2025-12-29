@@ -22,7 +22,7 @@ export function FeaturesSection() {
               team/CTF workflows—no complex setup required.
             </p>
           </div> */}
-          <div className="flex items-center">
+          <div className="flex flex-col gap-8 lg:flex-row items-center">
             <div className="order-2 mask-b-from-75% mask-l-from-75% mask-b-to-95% mask-l-to-95% relative md:-mx-2">
               <div className="perspective-midrange">
                 <div className="rotate-x-6 -skew-2">
@@ -52,7 +52,7 @@ export function FeaturesSection() {
                 </div>
               </div>
             </div>
-            <div className="relative mx-auto grid grid-cols-1 gap-x-3 gap-y-6 sm:gap-8 lg:grid-cols-1">
+            <div className="relative order-2 lg:order-1 mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-3 gap-y-6 sm:gap-8 lg:grid-cols-1">
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <LightningIcon className="size-4" />
