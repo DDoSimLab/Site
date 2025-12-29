@@ -5,11 +5,7 @@ import {
   SparkleIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
-import {
-  TEXT_CONTENT,
-  NAVIGATION,
-  IMAGE_DIMENSIONS,
-} from "@/lib/constants";
+import { TEXT_CONTENT, NAVIGATION, IMAGE_DIMENSIONS } from "@/lib/constants";
 
 export function FeaturesSection() {
   return (
@@ -33,21 +29,21 @@ export function FeaturesSection() {
                 <div className="rotate-x-6 -skew-2">
                   <div className="aspect-auto relative">
                     <Image
-                      src="/mail-upper2.png"
+                      src="/ddosim-light.png"
                       className="absolute inset-0 z-0"
                       alt="payments illustration dark"
                       width={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.WIDTH}
                       height={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.HEIGHT}
                     />
                     <Image
-                      src="/mail-upper2.png"
+                      src="/ddosim-dark.png"
                       className="hidden dark:block"
                       alt="payments illustration dark"
                       width={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.WIDTH}
                       height={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.HEIGHT}
                     />
                     <Image
-                      src="/mail-upper2.png"
+                      src="/ddosim-light.png"
                       className="dark:hidden"
                       alt="payments illustration light"
                       width={IMAGE_DIMENSIONS.FEATURES_ILLUSTRATION.WIDTH}
