@@ -1,7 +1,12 @@
 "use client";
-import { SITE_URLS } from "@/lib/constants";
+import {
+  ICON_SIZES,
+  SIMULATOR_URLS,
+  SITE_URLS,
+  TEXT_CONTENT,
+} from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { ListIcon, XIcon } from "@phosphor-icons/react";
+import { CaretDoubleRightIcon, ListIcon, XIcon } from "@phosphor-icons/react";
 import {
   motion,
   AnimatePresence,
@@ -12,6 +17,8 @@ import Image from "next/image";
 
 import React, { useRef, useState } from "react";
 import { GithubButton } from "./github-button";
+import Link from "next/link";
+import { Button } from "./button";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -46,11 +53,40 @@ interface MobileNavHeaderProps {
 }
 
 interface MobileNavMenuProps {
-  children: React.ReactNode;
+  items: {
+    name: string;
+    link: string;
+  }[];
+  stars: number;
   className?: string;
   isOpen: boolean;
   onClose: () => void;
 }
+
+const handleClick = (
+  e: React.MouseEvent<HTMLAnchorElement>,
+  item: { name: string; link: string },
+  onItemClick?: () => void
+) => {
+  if (item.link.startsWith("#")) {
+    e.preventDefault();
+    const element = document.querySelector(item.link);
+    if (element) {
+      const headerOffset = 140; // Account for fixed header height + padding
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  }
+  if (onItemClick) {
+    onItemClick();
+  }
+};
 
 export const Navbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -127,30 +163,6 @@ export const NavItems = ({
 }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const handleClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    item: { name: string; link: string }
-  ) => {
-    if (item.link.startsWith("#")) {
-      e.preventDefault();
-      const element = document.querySelector(item.link);
-      if (element) {
-        const headerOffset = 140; // Account for fixed header height + padding
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition =
-          elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-      }
-    }
-    if (onItemClick) {
-      onItemClick();
-    }
-  };
-
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
@@ -182,7 +194,6 @@ export const NavItems = ({
         roundStars={true}
         targetStars={stars}
         repoUrl={SITE_URLS.GITHUB_REPO}
-        className="place-self-end"
       />
     </motion.div>
   );
@@ -236,10 +247,11 @@ export const MobileNavHeader = ({
 };
 
 export const MobileNavMenu = ({
-  children,
   className,
   isOpen,
   onClose,
+  items,
+  stars,
 }: MobileNavMenuProps) => {
   return (
     <AnimatePresence>
@@ -253,7 +265,44 @@ export const MobileNavMenu = ({
             className
           )}
         >
-          {children}
+          {items.map((item, idx) => (
+            <a
+              key={`mobile-link-${idx}`}
+              href={item.link}
+              onClick={(e) => {
+                handleClick(e, item);
+                onClose();
+              }}
+              className="relative text-neutral-600 dark:text-neutral-300"
+            >
+              <span className="block">{item.name}</span>
+            </a>
+          ))}
+          <div className="flex flex-row items-center justify-between w-full">
+            <Link
+              href={SIMULATOR_URLS.PRIMARY}
+              aria-label={TEXT_CONTENT.HERO.ARIA_LABEL}
+            >
+              <NavbarButton
+                onClick={() => onClose()}
+                variant="primary"
+                className="flex gap-2 items-center"
+              >
+                <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>
+                <CaretDoubleRightIcon
+                  weight="duotone"
+                  size={ICON_SIZES.MEDIUM}
+                />
+              </NavbarButton>
+            </Link>
+            <GithubButton
+              variant={"outline"}
+              separator={true}
+              roundStars={true}
+              targetStars={stars}
+              repoUrl={SITE_URLS.GITHUB_REPO}
+            />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
@@ -268,9 +317,13 @@ export const MobileNavToggle = ({
   onClick: () => void;
 }) => {
   return isOpen ? (
-    <XIcon className="text-black dark:text-white" onClick={onClick} />
+    <Button variant="outline" size="icon" className="h-8 w-8" onClick={onClick}>
+      <XIcon className="text-black dark:text-white" />
+    </Button>
   ) : (
-    <ListIcon className="text-black dark:text-white" onClick={onClick} />
+    <Button variant="outline" size="icon" className="h-8 w-8" onClick={onClick}>
+      <ListIcon className="text-black dark:text-white" />
+    </Button>
   );
 };
 
