@@ -17,7 +17,7 @@ export function HeroSection() {
       aria-labelledby="hero-heading"
     >
       <div className="hero-container container mx-auto px-8 max-w-7xl">
-        <div className="hero-grid grid md:grid-cols-2 gap-8 items-center py-16 md:py-0">
+        <div className="hero-grid grid lg:grid-cols-2 gap-8 items-center py-16 md:py-0">
           {/* Left Column */}
           <div className="hero-left space-y-6 place-self-center z-20">
             {/* Main Heading */}
@@ -58,7 +58,7 @@ export function HeroSection() {
           </div>
 
           {/* Right Column - Image Placeholder */}
-          <div className="hero-right hero-image-placeholder aspect-square relative z-2">
+          <div className="hero-right aspect-square relative z-2">
             <Globe className="place-self-center" />
           </div>
         </div>
