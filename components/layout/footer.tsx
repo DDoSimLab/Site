@@ -9,10 +9,6 @@ const links = [
     title: "Blogs",
     href: "/blog",
   },
-  {
-    title: "About",
-    href: "/about",
-  },
 ];
 
 export function Footer() {

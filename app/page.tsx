@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/sections/hero-section";
 import { FeaturesSection } from "@/components/sections/features-section";
+import { AboutSection } from "@/components/sections/about-section";
 import { BlogsSection } from "@/components/sections/blogs-section";
 import { GravityStarsBackground } from "@/components/animate-ui/components/backgrounds/gravity-stars";
 import { HexagonBackground } from "@/components/animate-ui/components/backgrounds/hexagon";
@@ -16,6 +17,7 @@ export default function Page() {
         <HeroSection />
       </div>
       <FeaturesSection />
+      <AboutSection />
       <BlogsSection />
     </main>
   );
