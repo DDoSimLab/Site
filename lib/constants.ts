@@ -8,8 +8,8 @@
 // ============================================================================
 
 export const SITE_URLS = {
-  BASE: process.env.NEXT_PUBLIC_SITE_URL ?? "https://ddosim.com",
-  SIMULATOR: "https://ddosim.vercel.app",
+  BASE: "http://ddosim.live",
+  SIMULATOR: "https://sim.ddosim.live",
   SCHEMA_ORG: "https://schema.org",
   GITHUB_REPO_API: "https://api.github.com/repos/DDoSimLab/Site",
   GITHUB_REPO: "https://github.com/DDoSimLab/Site",
