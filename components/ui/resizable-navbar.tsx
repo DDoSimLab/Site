@@ -50,6 +50,7 @@ interface MobileNavProps {
 interface MobileNavHeaderProps {
   children: React.ReactNode;
   className?: string;
+  stars: number;
 }
 
 interface MobileNavMenuProps {
@@ -57,7 +58,6 @@ interface MobileNavMenuProps {
     name: string;
     link: string;
   }[];
-  stars: number;
   className?: string;
   isOpen: boolean;
   onClose: () => void;
@@ -231,15 +231,24 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
 export const MobileNavHeader = ({
   children,
   className,
+  stars,
 }: MobileNavHeaderProps) => {
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between",
+        "flex w-full items-center justify-between gap-2",
         className
       )}
     >
       {children}
+      <GithubButton
+        variant={"outline"}
+        separator={true}
+        roundStars={true}
+        targetStars={stars}
+        repoUrl={SITE_URLS.GITHUB_REPO}
+        className="ml-auto"
+      />
     </div>
   );
 };
@@ -249,7 +258,6 @@ export const MobileNavMenu = ({
   isOpen,
   onClose,
   items,
-  stars,
 }: MobileNavMenuProps) => {
   return (
     <AnimatePresence>
@@ -276,31 +284,19 @@ export const MobileNavMenu = ({
               <span className="block">{item.name}</span>
             </a>
           ))}
-          <div className="flex flex-row items-center justify-between w-full">
-            <Link
-              href={SIMULATOR_URLS.PRIMARY}
-              aria-label={TEXT_CONTENT.HERO.ARIA_LABEL}
+          <Link
+            href={SIMULATOR_URLS.PRIMARY}
+            aria-label={TEXT_CONTENT.HERO.ARIA_LABEL}
+          >
+            <NavbarButton
+              onClick={() => onClose()}
+              variant="primary"
+              className="flex gap-2 items-center"
             >
-              <NavbarButton
-                onClick={() => onClose()}
-                variant="primary"
-                className="flex gap-2 items-center"
-              >
-                <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>
-                <CaretDoubleRightIcon
-                  weight="duotone"
-                  size={ICON_SIZES.MEDIUM}
-                />
-              </NavbarButton>
-            </Link>
-            <GithubButton
-              variant={"outline"}
-              separator={true}
-              roundStars={true}
-              targetStars={stars}
-              repoUrl={SITE_URLS.GITHUB_REPO}
-            />
-          </div>
+              <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>
+              <CaretDoubleRightIcon weight="duotone" size={ICON_SIZES.MEDIUM} />
+            </NavbarButton>
+          </Link>
         </motion.div>
       )}
     </AnimatePresence>
@@ -315,11 +311,21 @@ export const MobileNavToggle = ({
   onClick: () => void;
 }) => {
   return isOpen ? (
-    <Button variant="outline" size="icon" className="h-8 w-8" onClick={onClick}>
+    <Button
+      variant="outline"
+      size="icon"
+      className="h-8 w-8 order-2"
+      onClick={onClick}
+    >
       <XIcon className="text-black dark:text-white" />
     </Button>
   ) : (
-    <Button variant="outline" size="icon" className="h-8 w-8" onClick={onClick}>
+    <Button
+      variant="outline"
+      size="icon"
+      className="h-8 w-8 order-2"
+      onClick={onClick}
+    >
       <ListIcon className="text-black dark:text-white" />
     </Button>
   );

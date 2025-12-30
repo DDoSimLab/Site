@@ -52,7 +52,7 @@ export function Header({ stars }: { stars: number }) {
 
         {/* Mobile Navigation */}
         <MobileNav>
-          <MobileNavHeader>
+          <MobileNavHeader stars={stars}>
             <NavbarLogo />
             <MobileNavToggle
               isOpen={isMobileMenuOpen}
@@ -62,7 +62,6 @@ export function Header({ stars }: { stars: number }) {
 
           <MobileNavMenu
             items={navItems}
-            stars={stars}
             isOpen={isMobileMenuOpen}
             onClose={() => setIsMobileMenuOpen(false)}
           />
