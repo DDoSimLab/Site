@@ -1,6 +1,6 @@
 import ReactGA from "react-ga4";
 
-export const GA_ID = process.env.GA_ID;
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const isProduction =
   process.env.NODE_ENV === "production" && Boolean(GA_ID);
 
