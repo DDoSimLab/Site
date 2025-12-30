@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SITE_URLS, SITE_METADATA, IMAGE_DIMENSIONS } from "@/lib/constants";
+import { GAInit } from "@/components/ga-init";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -85,6 +86,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full flex flex-col`}
       >
+        <GAInit />
         <Header stars={stars!} />
         <div className="flex-1">{children}</div>
         <Footer stars={stars!} />
