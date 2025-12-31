@@ -19,7 +19,7 @@ export function Footer({ stars }: { stars: number }) {
   return (
     <footer className="footer border-t border-gray-300 py-8 mt-16">
       <div className="footer-container container mx-auto px-8 max-w-7xl">
-        <div className="flex flex-wrap justify-between gap-6 items-center">
+        <div className="flex flex-wrap md:justify-between justify-center gap-6 items-center">
           <span className="text-muted-foreground order-last block text-center text-sm md:order-first">
             {TEXT_CONTENT.FOOTER.COPYRIGHT(new Date().getFullYear())}
           </span>
