@@ -16,7 +16,7 @@ export function AboutSection() {
               <h2 className="text-3xl md:text-4xl font-bold">
                 {TEXT_CONTENT.ABOUT.TITLE}
               </h2>
-              <p className="text-gray-700 dark:text-gray-300 text-lg">
+              <p className="text-muted-foreground text-lg">
                 {TEXT_CONTENT.ABOUT.DESCRIPTION}
               </p>
             </div>
@@ -33,7 +33,7 @@ export function AboutSection() {
                   <h3 className="text-xl font-semibold mb-2">
                     {TEXT_CONTENT.ABOUT.MISSION.TITLE}
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300">
+                  <p className="text-muted-foreground">
                     {TEXT_CONTENT.ABOUT.MISSION.DESCRIPTION}
                   </p>
                 </div>
@@ -47,7 +47,7 @@ export function AboutSection() {
                   <h3 className="text-xl font-semibold mb-2">
                     {TEXT_CONTENT.ABOUT.VISION.TITLE}
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300">
+                  <p className="text-muted-foreground">
                     {TEXT_CONTENT.ABOUT.VISION.DESCRIPTION}
                   </p>
                 </div>

@@ -38,7 +38,7 @@ export function HeroSection() {
 
             {/* Subheading/Description */}
             <div className="hero-description space-y-2">
-              <p className="hero-description-text text-gray-700">
+              <p className="hero-description-text text-muted-foreground">
                 {TEXT_CONTENT.HERO.DESCRIPTION}
               </p>
             </div>

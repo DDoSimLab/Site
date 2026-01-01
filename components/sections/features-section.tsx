@@ -19,7 +19,7 @@ export function FeaturesSection() {
             <h2 className="text-3xl md:text-4xl font-bold">
               {TEXT_CONTENT.FEATURES.TITLE}
             </h2>
-            <p className="mt-6 text-gray-700">
+            <p className="mt-6 text-muted-foreground">
               {TEXT_CONTENT.FEATURES.DESCRIPTION}
             </p>
           </div>
