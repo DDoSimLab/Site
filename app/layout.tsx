@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SITE_URLS, SITE_METADATA, IMAGE_DIMENSIONS } from "@/lib/constants";
 import { GAInit } from "@/components/ga-init";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -87,9 +88,16 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full flex flex-col`}
       >
         <GAInit />
-        <Header stars={stars!} />
-        <div className="flex-1">{children}</div>
-        <Footer stars={stars!} />
+        <ThemeProvider
+          defaultTheme="system"
+          attribute="class"
+          storageKey="vite-ui-theme"
+          enableSystem
+        >
+          <Header stars={stars!} />
+          <div className="flex-1">{children}</div>
+          <Footer stars={stars!} />
+        </ThemeProvider>
       </body>
     </html>
   );
