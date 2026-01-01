@@ -41,7 +41,7 @@ export function Header({ stars }: { stars: number }) {
           >
             <NavbarButton
               as="button"
-              variant="primary"
+              variant="gradient"
               className="flex gap-2 items-center"
             >
               <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>

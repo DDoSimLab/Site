@@ -6,6 +6,7 @@ import { useMotionValue, useSpring } from "motion/react";
 
 import { cn } from "@/lib/utils";
 import { GLOBE } from "@/lib/constants";
+import { useTheme } from "next-themes";
 
 const GLOBE_CONFIG: COBEOptions = {
   width: GLOBE.CONFIG.WIDTH,
@@ -31,6 +32,7 @@ export function Globe({
   className?: string;
   config?: COBEOptions;
 }) {
+  const { theme } = useTheme();
   let phi = 0;
   let width = 0;
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -87,8 +89,16 @@ export function Globe({
       ],
     }));
 
+    // Theme-based colors
+    const isDark = theme === "dark";
+    const glowColor: [number, number, number] = isDark
+      ? [0, 0, 0] // Black glow for light theme
+      : [1, 1, 1]; // White glow for dark theme
+
     const globe = createGlobe(canvasRef.current!, {
       ...config,
+      dark: isDark ? 1 : 0,
+      glowColor,
       markers: markersWithColors, // Use the markers with individual colors
       width: width * 2,
       height: width * 2,
@@ -126,7 +136,7 @@ export function Globe({
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, [rs, config]);
+  }, [rs, config, theme]);
 
   return (
     <div

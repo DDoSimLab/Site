@@ -135,7 +135,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="container mx-auto max-w-4xl">
             <Link
               href={ROUTES.BLOG}
-              className="inline-flex items-center gap-2 text-primary hover:underline mb-4"
+              className="inline-flex items-center gap-2 text-white hover:underline mb-4"
             >
               <ArrowLeftIcon size={ICON_SIZES.SMALL} weight="duotone" />
               {TEXT_CONTENT.BLOG.POST.BACK_TO_BLOG}

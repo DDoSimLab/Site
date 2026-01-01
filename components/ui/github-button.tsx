@@ -266,7 +266,7 @@ function GithubButton({
         <div
           className={cn(
             "h-full relative flex items-center justify-center",
-            separator && "w-9 bg-muted/60 border-e border-input"
+            separator && "w-9 bg-muted border-e border-input"
           )}
         >
           <svg role="img" viewBox="0 0 24 24" fill="currentColor">

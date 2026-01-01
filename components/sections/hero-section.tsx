@@ -9,6 +9,7 @@ import {
 } from "@/lib/constants";
 import { Globe } from "../ui/globe";
 import { Highlighter } from "../ui/highlighter";
+import { NavbarButton } from "../ui/resizable-navbar";
 
 export function HeroSection() {
   return (
@@ -26,7 +27,7 @@ export function HeroSection() {
               className="hero-heading text-3xl md:text-4xl font-bold"
             >
               {TEXT_CONTENT.HERO.HEADING.PART1}{" "}
-              <Highlighter action="highlight">
+              <Highlighter action="highlight" color={COLORS.HIGHLIGHT_YELLOW}>
                 {TEXT_CONTENT.HERO.HEADING.PART2}
               </Highlighter>{" "}
               {TEXT_CONTENT.HERO.HEADING.PART3}{" "}
@@ -47,13 +48,17 @@ export function HeroSection() {
               href={SIMULATOR_URLS.PRIMARY}
               aria-label={TEXT_CONTENT.HERO.ARIA_LABEL}
             >
-              <Button variant="outline">
-                {TEXT_CONTENT.BUTTONS.SIMULATOR}
+              <NavbarButton
+                as="button"
+                variant="gradient"
+                className="flex gap-2 items-center"
+              >
+                <span>{TEXT_CONTENT.BUTTONS.SIMULATOR}</span>
                 <CaretDoubleRightIcon
                   weight="duotone"
                   size={ICON_SIZES.MEDIUM}
                 />
-              </Button>
+              </NavbarButton>
             </Link>
           </div>
 

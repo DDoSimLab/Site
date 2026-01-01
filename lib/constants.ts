@@ -275,6 +275,7 @@ export const GLOBE = {
 
 export const COLORS = {
   HIGHLIGHT_ORANGE: "#FF9800",
+  HIGHLIGHT_YELLOW: "#00D1C1",
 } as const;
 
 // ============================================================================

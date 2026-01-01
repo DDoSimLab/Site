@@ -14,6 +14,7 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 import React, { useRef, useState } from "react";
 import { GithubButton } from "./github-button";
@@ -123,13 +124,19 @@ export const Navbar = ({ children, className }: NavbarProps) => {
 };
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
+  const lightBoxShadow =
+    "rgba(0, 0, 0, 0.1) 0px 0px 20px, rgba(0, 0, 0, 0.06) 0px 1px 0px, rgba(0, 0, 0, 0.07) 0px 0px 0px 4px, rgba(34, 42, 53, 0.08) 0px 0px 0px, rgba(47, 48, 55, 0.05) 0px 0px 0px, rgba(255, 255, 255, 0.1) 0px 0px 0px inset";
+  const darkBoxShadow =
+    "rgba(0, 0, 0, 0.3) 0px 0px 20px, rgba(0, 0, 0, 0.2) 0px 1px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.4) 0px 0px 0px";
+
   return (
     <motion.div
       animate={{
         backdropFilter: visible ? "blur(25px)" : "none",
-        boxShadow: visible
-          ? "rgba(0, 0, 0, 0.1) 0px 0px 20px, rgba(0, 0, 0, 0.06) 0px 1px 0px, rgba(0, 0, 0, 0.07) 0px 0px 0px 4px, rgba(34, 42, 53, 0.08) 0px 0px 0px, rgba(47, 48, 55, 0.05) 0px 0px 0px, rgba(255, 255, 255, 0.1) 0px 0px 0px inset"
-          : "none",
+        boxShadow: visible ? (isDark ? darkBoxShadow : lightBoxShadow) : "none",
         borderBottom: visible ? "none" : "1px solid rgba(0, 0, 0, 0.08)",
         width: visible ? "85%" : "100%",
         y: visible ? 20 : 0,
@@ -200,13 +207,19 @@ export const NavItems = ({
 };
 
 export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
+  const lightBoxShadow =
+    "rgba(0, 0, 0, 0.1) 0px 0px 20px, rgba(0, 0, 0, 0.06) 0px 1px 0px, rgba(0, 0, 0, 0.07) 0px 0px 0px 4px, rgba(34, 42, 53, 0.08) 0px 0px 0px, rgba(47, 48, 55, 0.05) 0px 0px 0px, rgba(255, 255, 255, 0.1) 0px 0px 0px inset";
+  const darkBoxShadow =
+    "rgba(0, 0, 0, 0.3) 0px 0px 20px, rgba(0, 0, 0, 0.2) 0px 1px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.4) 0px 0px 0px";
+
   return (
     <motion.div
       animate={{
         backdropFilter: visible ? "blur(50px)" : "none",
-        boxShadow: visible
-          ? "rgba(0, 0, 0, 0.1) 0px 0px 20px, rgba(0, 0, 0, 0.06) 0px 1px 0px, rgba(0, 0, 0, 0.07) 0px 0px 0px 4px, rgba(34, 42, 53, 0.08) 0px 0px 0px, rgba(47, 48, 55, 0.05) 0px 0px 0px, rgba(255, 255, 255, 0.1) 0px 0px 0px inset"
-          : "none",
+        boxShadow: visible ? (isDark ? darkBoxShadow : lightBoxShadow) : "none",
         borderBottom: visible ? "none" : "1px solid rgba(0, 0, 0, 0.08)",
         width: visible ? "85%" : "100%",
         y: visible ? 20 : 0,
@@ -375,7 +388,7 @@ export const NavbarButton = ({
     secondary: "bg-transparent shadow-none dark:text-white",
     dark: "bg-black text-white shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
     gradient:
-      "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
+      "bg-gradient-to-b to-[#01A41A] from-[#01C41E] text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
   };
 
   return (
