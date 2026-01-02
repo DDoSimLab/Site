@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import createGlobe, { COBEOptions, Marker } from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
 
@@ -32,7 +32,10 @@ export function Globe({
   className?: string;
   config?: COBEOptions;
 }) {
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">(
+    resolvedTheme === "dark" ? "dark" : "light"
+  );
   let phi = 0;
   let width = 0;
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -40,6 +43,7 @@ export function Globe({
   const pointerInteractionMovement = useRef(0);
   const originalSizesRef = useRef<number[]>([]);
   const pulseRef = useRef(0); // Use ref to persist pulse value across renders
+  const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
 
   const r = useMotionValue(0);
   const rs = useSpring(r, {
@@ -62,6 +66,33 @@ export function Globe({
       r.set(r.get() + delta / GLOBE.MOVEMENT_DAMPING);
     }
   };
+
+  // Update current theme when resolvedTheme changes
+  useEffect(() => {
+    if (resolvedTheme) {
+      setCurrentTheme(resolvedTheme === "dark" ? "dark" : "light");
+    }
+  }, [resolvedTheme]);
+
+  // Listen to system theme changes when theme is "system"
+  useEffect(() => {
+    if (theme !== "system") return;
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      setCurrentTheme(e.matches ? "dark" : "light");
+    };
+
+    // Set initial value
+    setCurrentTheme(mediaQuery.matches ? "dark" : "light");
+
+    // Listen for changes
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, [theme]);
 
   useEffect(() => {
     const onResize = () => {
@@ -89,11 +120,17 @@ export function Globe({
       ],
     }));
 
-    // Theme-based colors
-    const isDark = theme === "dark";
+    // Theme-based colors - use currentTheme which updates based on resolved theme or system changes
+    const isDark = currentTheme === "dark";
+
     const glowColor: [number, number, number] = isDark
-      ? [0, 0, 0] // Black glow for light theme
-      : [1, 1, 1]; // White glow for dark theme
+      ? [0, 0, 0] // Black glow for dark theme
+      : [1, 1, 1]; // White glow for light theme
+
+    // Destroy existing globe if it exists
+    if (globeRef.current) {
+      globeRef.current.destroy();
+    }
 
     const globe = createGlobe(canvasRef.current!, {
       ...config,
@@ -131,12 +168,14 @@ export function Globe({
       },
     });
 
+    globeRef.current = globe;
+
     setTimeout(() => (canvasRef.current!.style.opacity = "1"), 0);
     return () => {
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, [rs, config, theme]);
+  }, [rs, config, currentTheme]);
 
   return (
     <div
